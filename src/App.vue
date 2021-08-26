@@ -1,32 +1,38 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div class="flex">
+    <div>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-navigation-drawer v-model="drawer" absolute bottom temporary>
+        <v-list-item>
+          <router-link title="Search" to="/">Search</router-link>
+        </v-list-item>
+        <v-list-item>
+          <router-link title="Favorites" to="/favorites">Favorites</router-link>
+        </v-list-item>
+      </v-navigation-drawer>
     </div>
-    <router-view/>
+    <router-view></router-view>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+export default {
+  data: () => ({
+    drawer: false,
+    group: null,
+  }),
 
-#nav {
-  padding: 30px;
+  watch: {
+    group() {
+      this.drawer = false;
+    },
+  },
+};
+</script>
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+<style scoped>
+.flex {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
